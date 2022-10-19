@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+
+{% block title %}
+<title>註冊頁面</title>
+{% endblock %}
+{% block content %}
 
 <body>
     <h1>register</h1>
@@ -18,6 +16,4 @@
         <button type="submit">註冊</button>
         {{message}}
     </form>
-</body>
-
-</html>
+    {% endblock %}
