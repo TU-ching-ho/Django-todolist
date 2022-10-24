@@ -4,9 +4,12 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
+
 def user_logout(request):
     logout(request)
-    return redirect('profile')
+    return redirect('todo')
+
+
 def profile(request):
     return render(request, './user/profile.html')
 
@@ -33,7 +36,7 @@ def user_login(request):
                 else:
                     login(request, user)
                     message = '登入中'
-                    return redirect('profile')
+                    return redirect('todo')
         elif request.POST.get('register'):
             return redirect('register')
     return render(request, './user/login.html', {'message': message, 'username': username})
@@ -65,9 +68,13 @@ def user_register(request):
             if User.objects.filter(username=username).exists():
                 message = '帳號重複'
             else:
-                User.objects.create_user(
-                    username=username, password=password1).save()
+                user = User.objects.create_user(
+                    username=username, password=password1)
+                user.save()
                 message = ('註冊成功')
+                login(request, user)
+                message = '註冊成功!'
+                return redirect('profile')
         # 註冊功能
         # 兩次密碼是否相同
         # 密碼不能少於8個字元

@@ -11,3 +11,6 @@ class Todo(models.Model):
     important = models.BooleanField(default=False)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.id}-{self.title}({self.user.username})'
