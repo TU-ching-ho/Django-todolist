@@ -8,8 +8,9 @@
 <h1>Profile</h1>
 {% if user.is_authenticated %}
 <ul>
-    <li>{{user.username}}<a href="{% url 'logout' %}">登出</a></li>
-    <li>{{user.date_joined}}</li>
+
+    <li>建立日期:{{user.date_joined}}</li>
+    <li>最後登入時間:{{user.last_login}}</li>
 </ul>
 
 {% endif %}

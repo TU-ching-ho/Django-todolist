@@ -1,15 +1,18 @@
-from email import message
+
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import UserCreationForm
+from .forms import Myuserform
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def user_logout(request):
     logout(request)
     return redirect('todo')
 
 
+@login_required
 def profile(request):
     return render(request, './user/profile.html')
 
@@ -47,7 +50,7 @@ def user_login(request):
 
 def user_register(request):
 
-    form = UserCreationForm()
+    form = Myuserform()
     message = ''
 
     if request.method == 'GET':
@@ -58,6 +61,7 @@ def user_register(request):
         username = (request.POST.get('username'))
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+        email = request.POST.get('email')
 
         if len(password1) < 8:
             message = '密碼少於8個字元'
@@ -69,7 +73,7 @@ def user_register(request):
                 message = '帳號重複'
             else:
                 user = User.objects.create_user(
-                    username=username, password=password1)
+                    username=username, password=password1, email=email)
                 user.save()
                 message = ('註冊成功')
                 login(request, user)

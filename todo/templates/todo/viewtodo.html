@@ -18,5 +18,14 @@
         {{todo.date_completed}}</li>
     {% endif %}
 </ul>
-{{todo}}
+<hr>
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" name="update" value="更新">
+    <input type="submit" name="delete" value="刪除">
+
+</form>
+
+
 {% endblock %}
